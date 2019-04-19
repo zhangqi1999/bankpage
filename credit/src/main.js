@@ -5,17 +5,21 @@ import App from './App'
 import router from './router'
 import Vant from 'vant';
 import 'vant/lib/index.css';
-// 1、在main.js中引入axios
 import axios from 'axios'
-// 2、写成vue的原型属性
-Vue.prototype.$http = axios
+import Vuex from 'vuex'
+import store from './store/store'
 
+
+
+Vue.use(Vuex)
+Vue.prototype.$axios = axios;
 Vue.use(Vant);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'

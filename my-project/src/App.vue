@@ -91,22 +91,4 @@ textarea::-webkit-input-placeholder {
 	clear: both;
 	visibility: hidden;
 }
-/* 公共样式 */
-.recommend-title{
-    padding: 15px 0px 15px 15px;
-    display: flex;
-    justify-content: left;
-  }
-  .rounded-rectangle{
-    display: inline-block;
-    width: 4px;
-    height: 16px;
-    background: #ff4444;
-    border-radius: 3px;
-    margin-top: 3px;
-  }
-  .special{
-    font-size: 15px;
-    margin-left: 10px;
-  }
 </style>
