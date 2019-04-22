@@ -8,13 +8,14 @@ import 'vant/lib/index.css';
 import axios from 'axios'
 import Vuex from 'vuex'
 import store from './store/store'
-
+import Mint from 'mint-ui';
 
 
 Vue.use(Vuex)
-Vue.prototype.$axios = axios;
+Vue.prototype.$http = axios;
 Vue.use(Vant);
 Vue.config.productionTip = false
+Vue.use(Mint);
 
 /* eslint-disable no-new */
 new Vue({

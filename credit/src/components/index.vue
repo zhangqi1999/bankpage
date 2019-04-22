@@ -117,7 +117,7 @@
 
 <script>
 import $ from 'jquery'
-import axios from 'axios'
+import {getData} from '../request/api.js'
 export default {
   name: 'HelloWorld',
   data () {
@@ -129,7 +129,12 @@ export default {
       {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
       {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
       {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"}    
+      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
+      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
+      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
+      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
+      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
+      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"}
     ],
     qxlist:[
       {title:'不限期限'},
@@ -153,7 +158,7 @@ export default {
       {title:"期限长"}
     ],
       finished: false,
-      loading: false,
+      loading: false
     }
   },
   methods:{
@@ -166,7 +171,7 @@ export default {
             if (this.list.length >= this.list.length) {
             this.finished = true;
             }
-        }, 1500);
+        }, 2000);
       },
       btnclick(){
         alert("hello")
@@ -315,10 +320,34 @@ export default {
                   $("#img3").attr("src",'/static/trigon.png')
                 });
             })
+      },
+      //获取贷款信息列表
+      getCreditList(){
+        function getQueryString(name){
+          var url = window.location.search;
+          var reg = new RegExp('(^|&)'+ name +'=([^&]*)(&|$)','i');
+          var r = url.substr(1).match(reg);
+          if (r != null) return decodeURI(r[2]); return null;
+      }
+      let token=getQueryString('token')
+      let userGuid=getQueryString('userGuid')
+        getData('loan/getList','',{
+        "token": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
+        "userGuid": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
+        "quotaCode": 1,
+        "termCode": 2,
+        "orderCode": 3,
+        "city":"城市名称"
+        }).then(res=>{
+
+        }).catch(err=>{
+          console.log(err)
+        })
       }
   },
   mounted(){
-    this.handleClick()
+    this.handleClick();
+    this.getCreditList()
   }
 }
 </script>
@@ -390,7 +419,7 @@ export default {
   .bank-img{
     width: 40px;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-right: 10px;
   }
   .bank-count{
@@ -444,8 +473,8 @@ export default {
     font-size: 13px;
   }
     .trigon-img{
-    width: 14px;
-    height: 7px;
+    width: 12px;
+    height: 6px;
   }
     .active{
       color: #3F75FF;

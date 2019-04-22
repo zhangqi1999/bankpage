@@ -130,7 +130,7 @@
 
 <script>
 import $ from 'jquery'
-import { Toast } from 'vant';
+import { Toast } from 'vant'
 import {getData} from '../request/api.js'
 export default {
   name: 'index',
@@ -218,13 +218,21 @@ export default {
             }
         }, 1500);
         },
+        //获取银行卡列表信息
         getInfo(){
-          getData('trasm/getData','',{
-            "inviterUserGuid": "u1c1f947a29bb42149a1615d99fb4db10",
-            "trasmUserGuid": "1e35b025b56c4022affc115c085cbaec",
-            "type": 1
+          getData('credit/getList','',{
+            "token": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
+            "userGuid": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
+            "nameGuid": "行业名称Guid",
+            "purpoList": [{"guid": "用途Guid"}],
+            "gradeList": [{"guid": "等级Guid"}],
+            "annualFee": "年费GUid",
+            "cardAssoc": "卡组织GUid",
+            "currency": "币种GUid",
+            "privilegeList": [{"guid": "等级Guid"}],
+            "city": ""
           }).then(res=>{
-           
+            
           })
         },
         handleClick(){      
