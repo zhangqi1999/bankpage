@@ -1,38 +1,40 @@
 <template>
   <div class="hello">
-       <div class="banner"></div>
-       <div class="recommend">
+      <div class="banner"></div>
+      <div class="recommend">
         <div class="recommend-title">
           <span class="rounded-rectangle"></span>
           <h4 class="special">特别推荐</h4>
         </div>
-        <div class="bank-info">
-          <div class="col-top">
-            <div class="col-left">
-              <img src="/static/banner@2x.png" class="bank-img">
-              <div>
-                <h5 class="bank-title">洋钱罐借款</h5>
-                <span class="bank-detail">小额分期贷&nbsp;高通过率！秒放款</span>
+        <li v-for="(item,index) in Tlist" :key="index" class="list-circulate">
+            <div class="bank-info">
+              <div class="col-top">
+                <div class="col-left">
+                  <img :src="imgUrl+item.icon" class="bank-img">
+                  <div>
+                    <h5 class="bank-title">{{item.name}}</h5>
+                    <span class="bank-detail">{{item.slogan}}</span>
+                  </div>
+                </div>
+                  <!-- <p class="bank-count">16541人申请</p> -->
+              </div>
+              <div class="col-right">
+                <div class="bank-money">
+                  <p class="bank-price">{{item.minQuota}}-{{item.maxQuota }}</p>
+                  <p>额度范围（元）</p>
+                </div>
+                <div class="bank-time">
+                  <p class="vertical-line"></p>
+                  <div class="make-loan">
+                    <p>放款时长：{{item.lenderTimeDesc}}</p>
+                    <p>利率：{{item.interestRateDesc}}</p>
+                    <p>贷款期限：{{item.loanTerm}}</p>
+                  </div>
+                </div>
+                <button class="bank-btn" @click="jump(item.link)">免费申请</button>
               </div>
             </div>
-              <p class="bank-count">164238人申请</p>
-          </div>
-          <div class="col-right">
-            <div class="bank-money">
-              <p class="bank-price">5000-1万</p>
-              <p>额度范围（元）</p>
-            </div>
-            <div class="bank-time">
-              <p class="vertical-line"></p>
-              <div>
-                <p>放款时长：30分钟</p>
-                <p>利率：0.8%/每月</p>
-                <p>贷款期限：6-12月</p>
-              </div>
-            </div>
-            <button class="bank-btn">免费申请</button>
-          </div>
-        </div>
+          </li>
     </div>
         <div class="list-box">
             <div class="recommend-title">
@@ -42,35 +44,35 @@
             <van-row class="category">
                 <van-col span="8">
                     <span class="first-title whole">金额范围</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img1" />
+                    <img src="/test/loan/static/trigon.png" class="trigon-img" id="img1" />
                 </van-col>
                 <van-col span="8">
                     <span class="first-title purpose">贷款期限</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img2" />
+                    <img src="/test/loan/static/trigon.png" class="trigon-img" id="img2" />
                 </van-col>
                 <van-col span="8">
                     <span class="first-title grade">排序</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img3" />
+                    <img src="/test/loan/static/trigon.png" class="trigon-img" id="img3" />
                 </van-col>
             </van-row>
             <div class="container1">
                 <ul class="menu-item">
-                    <li  v-for="(item,index) in qxlist" :key="index" class="menu-list">
-                        <a href="javascript:;">{{item.title}}</a>
+                    <li  v-for="(item,index) in moneylist" :key="index" class="menu-list">
+                        <a href="javascript:;">{{item.name}}</a>
                     </li>
                 </ul>      
             </div>
             <div class="container2">
                 <ul class="menu-item">
-                    <li  v-for="(item,index) in moneylist" :key="index" class="menu-list">
-                        <a href="javascript:;">{{item.price}}</a>
+                    <li  v-for="(item,index) in qxlist" :key="index" class="menu-list">
+                        <a href="javascript:;">{{item.name}}</a>
                     </li>
                 </ul>      
             </div>
             <div class="container3">
                 <ul class="menu-item">
                     <li  v-for="(item,index) in desc" :key="index" class="menu-list">
-                        <a href="javascript:;">{{item.title}}</a>
+                        <a href="javascript:;">{{item.name}}</a>
                     </li>
                 </ul>      
             </div>
@@ -82,35 +84,35 @@
         finished-text="没有更多了"
         @load="onLoad"
         >
-        <li v-for="(item,index) in list" :key="index" class="list-circulate">
-        <div class="bank-info">
-          <div class="col-top row-top">
-            <div class="col-left">
-              <img src="/static/banner@2x.png" class="bank-img">
-              <div>
-                <h5 class="bank-title">{{item.title}}</h5>
-                <span class="bank-detail">{{item.detail1}}</span>
+          <li v-for="(item,index) in list" :key="index" class="list-circulate">
+            <div class="bank-info">
+              <div class="col-top">
+                <div class="col-left">
+                  <img :src="imgUrl+item.icon" class="bank-img">
+                  <div>
+                    <h5 class="bank-title">{{item.name}}</h5>
+                    <span class="bank-detail">{{item.slogan}}</span>
+                  </div>
+                </div>
+                  <!-- <p class="bank-count">16541人申请</p> -->
+              </div>
+              <div class="col-right">
+                <div class="bank-money">
+                  <p class="bank-price">{{item.minQuota}}-{{item.maxQuota }}</p>
+                  <p>额度范围（元）</p>
+                </div>
+                <div class="bank-time">
+                  <p class="vertical-line"></p>
+                  <div class="make-loan">
+                    <p>放款时长：{{item.lenderTimeDesc}}</p>
+                    <p>利率：{{item.interestRateDesc}}</p>
+                    <p>贷款期限：{{item.loanTerm}}</p>
+                  </div>
+                </div>
+                <button class="bank-btn" @click="jump(item.link)">免费申请</button>
               </div>
             </div>
-              <p class="bank-count">{{item.count}}</p>
-          </div>
-          <div class="col-right">
-            <div class="bank-money">
-              <p class="bank-price">{{item.price}}</p>
-              <p>{{item.money}}</p>
-            </div>
-            <div class="bank-time">
-              <p class="vertical-line"></p>
-              <div>
-                <p>{{item.sc}}</p>
-                <p>{{item.lilv}}</p>
-                <p>{{item.qx}}</p>
-              </div>
-            </div>
-            <button class="bank-btn" @click="btnclick">免费申请</button>
-          </div>
-        </div>
-        </li>
+          </li>
         </van-list>
   </div>
 </template>
@@ -122,40 +124,29 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-    list:[
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"},  
-      {src:require("../../static/banner@2x.png"),title:"洋钱罐借款",detail1:"小额分期贷、高通过率！秒放款",count:"164238人申请",price:"5000-1万",money:"额度范围（元）",sc:"放款时长：30分钟",lilv:"利率：0.8%/每月",qx:"贷款期限：6-12月"}
+    list:[],
+    Tlist:[],
+    //七牛云图片地址
+    imgUrl:"http://file.woownbit.com/",
+    moneylist:[
+      {code:"0",name:"不限金额"},
+      {code:"1",name:"2000以内"},
+      {code:"2",name:"2000-5000"},
+      {code:"3",name:"5000-10000"},
+      {code:"4",name:"10000以上"},
     ],
     qxlist:[
-      {title:'不限期限'},
-      {title:'1月以内'},
-      {title:'1月-6月'},
-      {title:'6月-12月'},
-      {title:'一年以上'}
-    ],
-    moneylist:[
-      {price:"不限金额"},
-      {price:"2000以内"},
-      {price:"2000-5000"},
-      {price:"5000-10000"},
-      {price:"10000以上"},
+      {code:"0",name:"不限期限"},
+      {code:"1",name:"1月以内"},
+      {code:"2",name:"1月~6月"},
+      {code:"3",name:"6月~12月"},
+      {code:"4",name:"一年以上"},
     ],
     desc:[
-      {title:"热门排行"},
-      {title:"额度高"},
-      {title:"利息低"},
-      {title:"放款快"},
-      {title:"期限长"}
+      {code:"1",name:"热门排序"},
+      {code:"2",name:"额度高"},
+      {code:"3",name:"放款快"},
+      {code:"4",name:"利息低"},
     ],
       finished: false,
       loading: false
@@ -173,24 +164,109 @@ export default {
             }
         }, 2000);
       },
-      btnclick(){
-        alert("hello")
+      jump(e){
+        window.location.href=e
+      },
+      //获取贷款信息列表
+      getCreditList(){
+        function getQueryString(name){
+          var url = window.location.search;
+          var reg = new RegExp('(^|&)'+ name +'=([^&]*)(&|$)','i');
+          var r = url.substr(1).match(reg);
+          if (r != null) return decodeURI(r[2]); return null;
+      }
+      let token=getQueryString('token')
+      let userGuid=getQueryString('userGuid')
+      //获取所有数据
+      getData('loan/getList','',{
+        "token": token,
+        "userGuid": userGuid,
+        "quotaCode": 0,
+        "termCode": 0,
+        "orderCode": 1,
+        "city":"城市名称"
+        }).then(res=>{
+          // console.log(res)
+          this.Tlist=res.data.data.list;
+          if(res.data.data.list==""||res.data.data.list.length==0){
+            $(".recommend").css("display","none")
+          }else{
+            $(".recommend").css("display","block")
+          }
+        }).catch(err=>{
+          console.log(err)
+        })
+        //获取所有贷款数据
+        getData('loan/getList','',{
+        "token": token,
+        "userGuid": userGuid,
+        "quotaCode": 0,
+        "termCode": 0,
+        "orderCode": 1
+        }).then(res=>{
+          // console.log(res)
+          //把获取到的list赋值给data中的list数组
+            this.list=res.data.data.list;
+        }).catch(err=>{
+          console.log(err)
+        })
+        //金额范围
+        getData('sys/getList','',{
+          "token": token,
+          "userGuid": userGuid,
+          "parentid":"quotaCode"
+          }).then(res=>{
+            // console.log(res)
+            //把获取到的list赋值给data中的list数组
+              this.moneylist=res.data.data.list;
+          }).catch(err=>{
+            console.log(err)
+        })
+          //时间期限
+        getData('sys/getList','',{
+          "token": token,
+          "userGuid": userGuid,
+          "parentid":"termCode"
+          }).then(res=>{
+            // console.log(res)
+            //把获取到的list赋值给data中的list数组
+              this.qxlist=res.data.data.list;
+          }).catch(err=>{
+            console.log(err)
+        })
+        //排序
+        getData('sys/getList','',{
+          "token": token,
+          "userGuid": userGuid,
+          "parentid":"orderCode"
+          }).then(res=>{
+            // console.log(res)
+            //把获取到的list赋值给data中的list数组
+              this.desc=res.data.data.list;
+          }).catch(err=>{
+            console.log(err)
+        })
+        $('.container1 .menu-list[0]').click(function(){
+            
+          getData('loan/getList','',{
+          "token": token,
+          "userGuid": userGuid,
+          "quotaCode": quotaCode,
+          "termCode": termCode,
+          "orderCode": orderCode,
+          "city":"城市名称"
+          }).then(res=>{
+            // console.log(res)
+            //把获取到的list赋值给data中的list数组
+              this.list=res.data.data.list;
+          }).catch(err=>{
+            console.log(err)
+          })
+        })
       },
       handleClick(){      
-                  $(".whole,#img1,.purpose,#img2,.grade,#img3").click(function(){
-                      $(".banner,.recommend,.recommend-title").css("display","none")
-                      $(".list-box").css("height","40px")
-                      $(".category").css("padding-top","10px")
-                      $(".category").css("padding-bottom","15px")
-              })
-              //金额范围
-            $(".whole,#img1").click(function (){
-                $(".whole,#img1").addClass('active')
-                if($(".purpose,#img2,.grade,#img3").hasClass('active')){
-                  $(".purpose,#img2,.grade,#img3").removeClass('active')
-                }
-                $(".container1").show("100",function(){
-                  $("#modal-overlay").css("display","block")
+            $(".whole,#img1,.purpose,#img2,.grade,#img3").click(function(){
+                $("#modal-overlay").css("display","block")
                   $("body").css({
                     "height":"100%",
                     "width":"100%",
@@ -198,9 +274,17 @@ export default {
                     "top":"0",
                     "left":"0"
                   })
-                  $("#img1").attr("src",'/static/trigon_active.png')
-                  $("#img2").attr("src",'/static/trigon.png')
-                  $("#img3").attr("src",'/static/trigon.png')
+              })
+              //金额范围
+              $(".whole,#img1").click(function (){
+                $(".whole,#img1").addClass('active')
+                if($(".purpose,#img2,.grade,#img3").hasClass('active')){
+                    $(".purpose,#img2,.grade,#img3").removeClass('active')
+                }
+                $(".container1").show("100",function(){
+                  $("#img1").attr("src",'/test/loan/static/trigon_active.png')
+                  $("#img2").attr("src",'/test/loan/static/trigon.png')
+                  $("#img3").attr("src",'/test/loan/static/trigon.png')
                   $(".container2").hide()
                   $(".container3").hide()
                 })
@@ -213,8 +297,8 @@ export default {
                 $(".whole,#img1").removeClass('active')
                 $('.container1').hide("100",function(){
                   $("#modal-overlay").css("display","none")
-                  $(".banner,.recommend").css("display","block")
-                  $(".recommend-title").css("display","flex")
+                  // $(".banner").css("display","block")
+                  // $(".recommend-title").css("display","flex")
                   $(".list-box").css("height","76px")
                   $(".category").css("padding-top","0")
                   $(".category").css("padding-bottom","0")
@@ -225,7 +309,7 @@ export default {
                     "top":"0",
                     "left":"0"
                   })
-                  $("#img1").attr("src",'/static/trigon.png')
+                  $("#img1").attr("src",'/test/loan/static/trigon.png')
                 });
             })
              //贷款期限
@@ -235,17 +319,9 @@ export default {
                   $(".whole,#img1,.grade,#img3").removeClass('active')
                 }
                 $(".container2").show("100",function(){
-                  $("#modal-overlay").css("display","block")
-                  $("body").css({
-                    "height":"100%",
-                    "width":"100%",
-                    "position":"fixed",
-                    "top":"0",
-                    "left":"0"
-                  })
-                  $("#img2").attr("src",'/static/trigon_active.png')
-                  $("#img1").attr("src",'/static/trigon.png')
-                  $("#img3").attr("src",'/static/trigon.png')
+                  $("#img2").attr("src",'/test/loan/static/trigon_active.png')
+                  $("#img1").attr("src",'/test/loan/static/trigon.png')
+                  $("#img3").attr("src",'/test/loan/static/trigon.png')
                   $(".container1").hide()
                   $(".container3").hide()
                 })
@@ -258,12 +334,6 @@ export default {
                 $(".purpose,.purpose>.trigon-img").removeClass('active')
                 $('.container2').hide("100",function(){
                   $("#modal-overlay").css("display","none")
-                  $("#modal-overlay").css("display","none")
-                  $(".banner,.recommend").css("display","block")
-                  $(".recommend-title").css("display","flex")
-                  $(".list-box").css("height","76px")
-                  $(".category").css("padding-top","0")
-                  $(".category").css("padding-bottom","0")
                   $("body").css({
                     "height":"auto",
                     "width":"100%",
@@ -271,7 +341,7 @@ export default {
                     "top":"0",
                     "left":"0"
                   })
-                  $("#img2").attr("src",'/static/trigon.png')
+                  $("#img2").attr("src",'/test/loan/static/trigon.png')
                 });
             })
              //排序
@@ -281,17 +351,9 @@ export default {
                   $(".whole,#img1,.purpose,#img2").removeClass('active')
                 }
                 $(".container3").show("100",function(){
-                  $("#modal-overlay").css("display","block")
-                  $("body").css({
-                    "height":"100%",
-                    "width":"100%",
-                    "position":"fixed",
-                    "top":"0",
-                    "left":"0"
-                  })
-                  $("#img3").attr("src",'/static/trigon_active.png')
-                  $("#img1").attr("src",'/static/trigon.png')
-                  $("#img2").attr("src",'/static/trigon.png')
+                  $("#img3").attr("src",'/test/loan/static/trigon_active.png')
+                  $("#img1").attr("src",'/test/loan/static/trigon.png')
+                  $("#img2").attr("src",'/test/loan/static/trigon.png')
                   $(".container1").hide()
                   $(".container2").hide()
                 })
@@ -304,12 +366,6 @@ export default {
                 $(".grade,#img3").removeClass('active')
                 $('.container3').hide("100",function(){
                   $("#modal-overlay").css("display","none")
-                  $("#modal-overlay").css("display","none")
-                  $(".banner,.recommend").css("display","block")
-                  $(".recommend-title").css("display","flex")
-                  $(".list-box").css("height","76px")
-                  $(".category").css("padding-top","0")
-                  $(".category").css("padding-bottom","0")
                   $("body").css({
                     "height":"auto",
                     "width":"100%",
@@ -317,38 +373,15 @@ export default {
                     "top":"0",
                     "left":"0"
                   })
-                  $("#img3").attr("src",'/static/trigon.png')
+                  $("#img3").attr("src",'/test/loan/static/trigon.png')
                 });
             })
       },
-      //获取贷款信息列表
-      getCreditList(){
-        function getQueryString(name){
-          var url = window.location.search;
-          var reg = new RegExp('(^|&)'+ name +'=([^&]*)(&|$)','i');
-          var r = url.substr(1).match(reg);
-          if (r != null) return decodeURI(r[2]); return null;
-      }
-      let token=getQueryString('token')
-      let userGuid=getQueryString('userGuid')
-        getData('loan/getList','',{
-        "token": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
-        "userGuid": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
-        "quotaCode": 1,
-        "termCode": 2,
-        "orderCode": 3,
-        "city":"城市名称"
-        }).then(res=>{
-
-        }).catch(err=>{
-          console.log(err)
-        })
-      }
   },
   mounted(){
-    this.handleClick();
+    this.handleClick()
     this.getCreditList()
-  }
+  },
 }
 </script>
 
@@ -362,11 +395,11 @@ export default {
   }
   .banner{
     height: 145px;
-    background: url(/static/banner@2x.png) no-repeat center center/100% 100%;
+    background: url(/test/loan/static/banner@2x.png) no-repeat center center/100% 100%;
   }
   .recommend{
     position: relative;
-    height: 160px;
+    height: auto;
     border-top: 10px solid #f2f2f2;
     border-bottom:10px solid #f2f2f2;
   }
@@ -388,14 +421,12 @@ export default {
     margin-left: 10px;
   }
   .bank-info{
-    height: 130px;
+    height: auto;
   }
   .col-top{
     display: flex;
     justify-content: space-between;
-  }
-  .row-top{
-    padding-top: 20px;
+    padding-bottom: 5px;
   }
   .col-left{
     display: flex;
@@ -437,12 +468,13 @@ export default {
   }
   .bank-time{
     display: flex;
+    align-items: center;
     font-size: 11px;
     color: #666;
   }
   .vertical-line{
     width: .6px;
-    height: 42px;
+    height: 46px;
     margin-top: 5px;
     margin-right: 20px;
     background: #dedede;
@@ -465,7 +497,12 @@ export default {
   }
   .list-circulate{
     position: relative;
+    padding: 10px 0px;
+    height:auto;
     border-bottom: .6px solid #dedede;
+  }
+  .make-loan p{
+    width: 140px;
   }
   .category{
     box-sizing: border-box;
@@ -481,7 +518,8 @@ export default {
     /* border-color: #3F75FF;     */
   }   
   .container1,.container2,.container3{
-    position: absolute;
+    position: fixed;
+    top: 0px;
     width: 100%;
     height: auto;
     z-index: 998;
@@ -539,7 +577,7 @@ export default {
     display: none;
     position: absolute;   /* 使用绝对定位或固定定位  */
     left: 0;
-    top: 45px;
+    top: 0px;
     width:100%;
     height: 100%;
     z-index: 990;

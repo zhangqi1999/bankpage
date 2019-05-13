@@ -6,20 +6,19 @@
         <span class="rounded-rectangle"></span>
         <h4 class="special">特别推荐</h4>
       </div>
-      <van-row class="bank-info">
+      <van-row class="bank-info" v-for="(item,index) in Tlist" :key="index">
         <van-col span="12" class="col-left">
-          <img src="/static/banner@2x.png" class="bank-img">
+          <img :src='imgUrl+item.cardFrontPhoto' class="bank-img">
         </van-col>
         <van-col span="12" class="col-right">
-          <h5 class="bank-title">{{title}}</h5>
-          <p class="bank-detail">{{detail1}}</p>
-          <p class="bank-detail">{{detail2}}</p>
-          <p class="bank-star">推荐指数：<i class="star-img"></i><i class="star-img"></i><i class="star-img"></i><i class="star-img"></i><i class="star-img"></i></p>
-          <button class="bank-btn1">免费申请</button>
+          <h5 class="bank-title">{{item.cardName}}</h5>
+          <p class="bank-detail">{{item.describe}}</p>
+          <p class="bank-star">推荐指数：<van-rate v-model="item.ourRatings" /></p>
+          <button class="bank-btn1" @click="jump(item.link)">免费申请</button>
         </van-col>
       </van-row>
     </div>
-     <div class="list-box">
+    <div class="list-box">
             <div class="recommend-title">
                 <span class="rounded-rectangle"></span>
                 <h4 class="special">为你精选</h4>
@@ -27,39 +26,39 @@
             <van-row class="category">
                 <van-col span="6">
                     <span class="first-title whole">全部银行</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img1" />
+                    <img src="/test/creditCard/static/trigon.png" class="trigon-img" id="img1" />
                 </van-col>
                 <van-col span="6">
                     <span class="first-title purpose">用途</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img2" />
+                    <img src="/test/creditCard/static/trigon.png" class="trigon-img" id="img2" />
                 </van-col>
                 <van-col span="6">
                     <span class="first-title grade">等级</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img3" />
+                    <img src="/test/creditCard/static/trigon.png" class="trigon-img" id="img3" />
                 </van-col>
                 <van-col span="6">
                     <span class="first-title added">更多</span>
-                    <img src="/static/trigon.png" class="trigon-img" id="img4" />
+                    <img src="/test/creditCard/static/trigon.png" class="trigon-img" id="img4" />
                 </van-col>
             </van-row>
             <div class="container1">
                 <ul class="menu-item">
                     <li  v-for="(item,index) in bankList" :key="index" class="menu-list">
-                        <a href="javascript:;">{{item.title}}</a>
+                        <a href="javascript:;">{{item.name}}</a>
                     </li>
                 </ul>      
             </div>
             <div class="container2">
                 <ul class="menu-item">
-                    <li  v-for="(item,index) in purlist" :key="index" class="menu-list">
-                        <a href="javascript:;">{{item.title}}</a>
+                    <li  v-for="(item,index) in ytList" :key="index" class="menu-list">
+                        <a href="javascript:;">{{item.name}}</a>
                     </li>
                 </ul>      
             </div>
             <div class="container3">
                 <ul class="menu-item">
-                    <li  v-for="(item,index) in bank" :key="index" class="menu-list">
-                        <a href="javascript:;">{{item.title}}</a>
+                    <li  v-for="(item,index) in gradList" :key="index" class="menu-list">
+                        <a href="javascript:;">{{item.name}}</a>
                     </li>
                 </ul>      
             </div>
@@ -67,32 +66,32 @@
                 <div class="item4">
                     <h5 class="item4-title">特权（多选）</h5>
                     <ul class="menu-item">
-                        <li  v-for="(item,index) in bank" :key="index" class="menu-list checkbox">
-                            <a href="javascript:;">{{item.title}}</a>
+                        <li  v-for="(item,index) in tqList" :key="index" class="menu-list checkbox">
+                            <a href="javascript:;">{{item.name}}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="item4">
                     <h5 class="item4-title">年费</h5>
                     <ul class="menu-item">
-                        <li  v-for="(item,index) in bank" :key="index" class="menu-list radio">
-                            <a href="javascript:;">{{item.title}}</a>
+                        <li  v-for="(item,index) in nfList" :key="index" class="menu-list radio">
+                            <a href="javascript:;">{{item.name}}</a>
                         </li>
                     </ul>           
                 </div> 
                 <div class="item4">
                     <h5 class="item4-title">卡组织（多选）</h5>
                     <ul class="menu-item">
-                        <li  v-for="(item,index) in bank" :key="index" class="menu-list checkbox">
-                            <a href="javascript:;">{{item.title}}</a>
+                        <li  v-for="(item,index) in kzzList" :key="index" class="menu-list checkbox">
+                            <a href="javascript:;">{{item.name}}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="item4">
                     <h5 class="item4-title">币种</h5>
                     <ul class="menu-item">
-                        <li  v-for="(item,index) in bank" :key="index" class="menu-list radio">
-                            <a href="javascript:;">{{item.title}}</a>
+                        <li  v-for="(item,index) in bzList" :key="index" class="menu-list radio">
+                            <a href="javascript:;">{{item.name}}</a>
                         </li>
                     </ul>
                 </div>
@@ -112,15 +111,14 @@
         <li v-for="(item,index) in list" :key="index" class="list-circulate">
             <van-row class="bank-info">
                 <van-col span="12">
-                    <img :src='item.src' class="bank-img" />
-                    <p class="reward">申请成功奖励20红豆</p>
+                    <img :src='imgUrl+item.cardFrontPhoto' class="bank-img" />
+                    <!-- <p class="reward">申请成功奖励20红豆</p> -->
                 </van-col>
                 <van-col span="12" class="col-right">
-                <h5 class="bank-title">{{item.title}}</h5>
-                <p class="bank-detail">{{item.detail1}}</p>
-                <p class="bank-detail">{{item.detail2}}</p>
-                <p class="bank-count">{{item.count}}</p>
-                <button class="bank-btn" @click="hand">免费申请</button>
+                <h5 class="bank-title">{{item.cardName}}</h5>
+                <p class="bank-detail">{{item.describe}}</p>
+                <p class="bank-count"></p>
+                <button class="bank-btn" @click="jump(item.link)">免费申请</button>
                 </van-col>
             </van-row>
         </li>
@@ -136,74 +134,89 @@ export default {
   name: 'index',
   data () {
     return {
+            imgUrl:"http://file.woownbit.com/",
             title:"YOUNG卡（青年版）",
             detail1:"每月首笔取现免手续费",
             detail2:"生日月尊享双倍积分",
-            list: [
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                {src:require("@/assets/banner@2x.png"),title:"YOUNG卡（青年版）",detail1:"每月首笔取现免手续费",detail2:"生日月尊享双倍积分",count:"33万人申请"},
-                
-            ],
+            list: [],
+            Tlist:[],
             finished: false,
             loading: false,
             bankList:[
-                { title:"全部银行"},
-                { title:"浦发银行"},
-                { title:"广发银行"},
-                { title:"花旗银行"},
-                { title:"光大银行"},
-                { title:"瑞士银行"},
-                { title:"中国银行"},
-                { title:"工商银行"},
-                { title:"交通银行"},
-                { title:"招商银行"},
-                { title:"平安银行"},
-                { title:"华夏银行"},
-                { title:"兴业银行"},
-                { title:"上海银行"},
-                { title:"中信银行"},
-                { title:"农业银行"},
-                { title:"建设银行"},
-                { title:"九江银行"}
+                { name:"全部银行"},
+                { name:"浦发银行"},
+                { name:"广发银行"},
+                { name:"花旗银行"},
+                { name:"光大银行"},
+                { name:"瑞士银行"},
+                { name:"中国银行"},
+                { name:"工商银行"},
+                { name:"交通银行"},
+                { name:"招商银行"},
+                { name:"平安银行"},
+                { name:"华夏银行"},
+                { name:"兴业银行"},
+                { name:"上海银行"},
+                { name:"中信银行"},
+                { name:"农业银行"},
+                { name:"建设银行"},
+                { name:"九江银行"}
             ],
-            bank:[
-                {title:"全部等级"},
-                {title:"普卡"},
-                {title:"金卡"},
-                {title:"白金卡"}
+            gradList:[
+                {name:"全部等级"},
+                {name:"普卡"},
+                {name:"金卡"},
+                {name:"白金卡"}
 
             ] ,
-            purlist:[
-              {title:"全部用途"},
-              {title:"大额取现"},
-              {title:"超市购物"},
-              {title:"商旅人士"},
-              {title:"主题卡"},
-              {title:"航空联名"},
-              {title:"境外刷卡"},
-              {title:"女性专属"},
-              {title:"网购剁手"},
-              {title:"标准卡"},
-              {title:"车主必备"},
-              {title:"出行优惠"},
-              {title:"吃货必备"},
-              {title:"高额"},
-              {title:"追星一族"},
-              {title:"积分超值换"},
-              {title:"秒批"},
-              {title:"易下"},
-              {title:"旅游达人"},
-              {title:"有颜任性"}
-
-            ]     
+            ytList:[
+              {name:"全部用途"},
+              {name:"大额取现"},
+              {name:"超市购物"},
+              {name:"商旅人士"},
+              {name:"主题卡"},
+              {name:"航空联名"},
+              {name:"境外刷卡"},
+              {name:"女性专属"},
+              {name:"联名卡"},
+              {name:"网购剁手"},
+              {name:"标准卡"},
+              {name:"车主必备"},
+              {name:"有颜任性"},
+              {name:"出行优惠"},
+              {name:"旅游达人"},
+              {name:"吃货必备"},
+              {name:"积分超值换"},
+              {name:"追星一族"},
+              {name:"网游一族"},
+              {name:"吸猫撸狗"},
+              {name:"追剧观影"},
+              {name:"秒批"},
+              {name:"易下"},
+              {name:"高额"}
+            ],
+            tqList:[
+              {name:"新户有礼"},
+              {name:"购物返现"},
+              {name:"赠送保险"}
+            ],
+            nfList:[
+              {name:"永久免年费"},
+              {name:"交易累计免年费"},
+              {name:"不免年费"}
+            ],
+            kzzList:[
+              {name:"银联"},
+              {name:"VISA"},
+              {name:"运通"},
+              {name:"JCB"},
+              {name:"万事达"},
+            ],
+            bzList:[
+              {name:"人民币"},
+              {name:"美元"},
+              {name:"双币种"}
+            ]               
     }
   },
   methods: {
@@ -220,32 +233,127 @@ export default {
         },
         //获取银行卡列表信息
         getInfo(){
-          getData('credit/getList','',{
-            "token": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
-            "userGuid": "w5bxd72h0aydarp8ppho8n8de9r5yvus",
-            "nameGuid": "行业名称Guid",
-            "purpoList": [{"guid": "用途Guid"}],
-            "gradeList": [{"guid": "等级Guid"}],
-            "annualFee": "年费GUid",
-            "cardAssoc": "卡组织GUid",
-            "currency": "币种GUid",
-            "privilegeList": [{"guid": "等级Guid"}],
-            "city": ""
+          function getQueryString(name){
+            var url = window.location.search;
+            var reg = new RegExp('(^|&)'+ name +'=([^&]*)(&|$)','i');
+            var r = url.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]); return null;
+          }
+            let token=getQueryString('token')
+            let userGuid=getQueryString('userGuid')
+          //银行卡类型
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"creditCardsType"
           }).then(res=>{
-            
+            this.bankList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+          //用途
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"xykyt"
+          }).then(res=>{
+            // console.log(res)
+            this.ytList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+          //等级
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"grade"
+          }).then(res=>{
+            this.gradList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+          //特权
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"privilege"
+          }).then(res=>{
+            this.tqList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+          //年费
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"annualFee"
+          }).then(res=>{
+            this.nfList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+          //卡组织
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"cardAssoc"
+          }).then(res=>{
+            this.kzzList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+          //币种
+          getData('sys/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "parentid":"currency"
+          }).then(res=>{
+            this.bzList=res.data.data.list
+          }).catch(err=>{
+            console.log(err)
+          })
+           //获取所有信息列表(特别推荐)
+          getData('credit/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "currentPage":1,
+            "pageSize":10,
+            "city":"城市"
+          }).then(res=>{
+            // console.log(res)
+            this.Tlist=res.data.data.list;
+            if(res.data.data.list==""||res.data.data.list.length==0){
+              $(".recommend").css("display","none")
+            }else{
+              $(".recommend").css("display","block")
+            }
+          }).catch(err=>{
+            console.log(err)
+          })
+          //获取所有信息列表
+          getData('credit/getList','',{
+            "token": token,
+            "userGuid": userGuid,
+            "currentPage":1,
+            "pageSize":10
+          }).then(res=>{
+            // console.log(res)
+            this.list=res.data.data.list;
+          }).catch(err=>{
+            console.log(err)
           })
         },
         handleClick(){      
           $(".whole,#img1,.purpose,#img2,.grade,#img3,.added,#img4").click(function(){
-              $(".banner,.recommend,.recommend-title").css("display","none")
-              // $(".category").css("z-index","999")
-              $(".list-circulate:eq(0)").css("margin-top","30px")
-              $(".list-box").css("height","40px")
-              $(".category").css("padding-top","10px")
-              $(".category").css("padding-bottom","15px")
-              
+              $("#modal-overlay").css("display","block")
+              $("body").css({
+                    "height":"100%",
+                    "width":"100%",
+                    "position":"fixed",
+                    "top":"0",
+                    "left":"0"
+                  })
           })
-                
             //全部银行
             $(".whole,#img1").click(function (){
                 $(".whole,#img1").addClass('active')
@@ -253,18 +361,10 @@ export default {
                   $(".purpose,#img2,.grade,#img3,.added,#img4").removeClass('active')
                 }
                 $(".container1").show("100",function(){
-                  $("#modal-overlay").css("display","block")
-                  $("body").css({
-                    "height":"100%",
-                    "width":"100%",
-                    "position":"fixed",
-                    "top":"0",
-                    "left":"0"
-                  })
-                  $("#img1").attr("src",'/static/trigon_active.png')
-                  $("#img2").attr("src",'/static/trigon.png')
-                  $("#img3").attr("src",'/static/trigon.png')
-                  $("#img4").attr("src",'/static/trigon.png')
+                  $("#img1").attr("src",'/test/creditCard/static/trigon_active.png')
+                  $("#img2").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img3").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img4").attr("src",'/test/creditCard/static/trigon.png')
                   $(".container2").hide()
                   $(".container3").hide()
                   $(".container4").hide()
@@ -278,12 +378,6 @@ export default {
                 $(".whole,.whole>.trigon-img").removeClass('active')
                 $('.container1').hide("100",function(){
                 $("#modal-overlay").css("display","none")
-                $(".recommend-title").css("display","flex")
-                $(".recommend").css("display","block")
-                $(".list-circulate:eq(0)").css("margin-top","18px")
-                $(".list-box").css("height","76px")
-                $(".category").css("padding-top","0")
-                $(".category").css("padding-bottom","0")
                   $("body").css({
                     "height":"auto",
                     "width":"100%",
@@ -291,7 +385,7 @@ export default {
                     "top":"0",
                     "left":"0"
                   })
-                  $("#img1").attr("src",'/static/trigon.png')
+                  $("#img1").attr("src",'/test/creditCard/static/trigon.png')
                 });
             })
             
@@ -302,18 +396,10 @@ export default {
                   $(".whole,#img1,.grade,#img3,.added,#img4").removeClass('active')
                 }
                 $(".container2").show("100",function(){
-                  $("#modal-overlay").css("display","block")
-                  $("body").css({
-                    "height":"100%",
-                    "width":"100%",
-                    "position":"fixed",
-                    "top":"0",
-                    "left":"0"
-                  })
-                  $("#img2").attr("src",'/static/trigon_active.png')
-                  $("#img1").attr("src",'/static/trigon.png')
-                  $("#img3").attr("src",'/static/trigon.png')
-                  $("#img4").attr("src",'/static/trigon.png')
+                  $("#img2").attr("src",'/test/creditCard/static/trigon_active.png')
+                  $("#img1").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img3").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img4").attr("src",'/test/creditCard/static/trigon.png')
                   $(".container1").hide()
                   $(".container3").hide()
                   $(".container4").hide()
@@ -327,12 +413,6 @@ export default {
                 $(".purpose,.purpose>.trigon-img").removeClass('active')
                 $('.container2').hide("100",function(){
                   $("#modal-overlay").css("display","none")
-                  $(".recommend-title").css("display","flex")
-                  $(".recommend").css("display","block")
-                  $(".list-circulate:eq(0)").css("margin-top","18px")
-                  $(".list-box").css("height","76px")
-                  $(".category").css("padding-top","0")
-                  $(".category").css("padding-bottom","0")
                   $("body").css({
                       "height":"auto",
                       "width":"100%",
@@ -340,7 +420,7 @@ export default {
                       "top":"0",
                       "left":"0"
                   })
-                  $("#img2").attr("src",'/static/trigon.png')
+                  $("#img2").attr("src",'/test/creditCard/static/trigon.png')
                 });
             })
              //等级
@@ -350,18 +430,11 @@ export default {
                   $(".whole,#img1,.purpose,#img2,.added,#img4").removeClass('active')
                 }
                 $(".container3").show("100",function(){
-                  $("#modal-overlay").css("display","block")
-                  $("body").css({
-                    "height":"100%",
-                    "width":"100%",
-                    "position":"fixed",
-                    "top":"0",
-                    "left":"0"
-                  })
-                  $("#img3").attr("src",'/static/trigon_active.png')
-                  $("#img1").attr("src",'/static/trigon.png')
-                  $("#img2").attr("src",'/static/trigon.png')
-                  $("#img4").attr("src",'/static/trigon.png')
+                  
+                  $("#img3").attr("src",'/test/creditCard/static/trigon_active.png')
+                  $("#img1").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img2").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img4").attr("src",'/test/creditCard/static/trigon.png')
                   $(".container1").hide()
                   $(".container2").hide()
                   $(".container4").hide()
@@ -376,7 +449,7 @@ export default {
                 $('.container3').hide("100",function(){
                   $("#modal-overlay").css("display","none")
                   $(".recommend-title").css("display","flex")
-                  $(".recommend").css("display","block")
+                  $(".banner").css("display","block")
                   $(".list-circulate:eq(0)").css("margin-top","18px")
                   $(".list-box").css("height","76px")
                   $(".category").css("padding-top","0")
@@ -388,7 +461,7 @@ export default {
                       "top":"0",
                       "left":"0"
                   })
-                  $("#img3").attr("src",'/static/trigon.png')
+                  $("#img3").attr("src",'/test/creditCard/static/trigon.png')
                 });
             })
              //更多
@@ -406,10 +479,10 @@ export default {
                     "top":"0",
                     "left":"0"
                   })
-                  $("#img4").attr("src",'/static/trigon_active.png')
-                  $("#img1").attr("src",'/static/trigon.png')
-                  $("#img2").attr("src",'/static/trigon.png')
-                  $("#img3").attr("src",'/static/trigon.png')
+                  $("#img4").attr("src",'/test/creditCard/static/trigon_active.png')
+                  $("#img1").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img2").attr("src",'/test/creditCard/static/trigon.png')
+                  $("#img3").attr("src",'/test/creditCard/static/trigon.png')
                   $(".container1").hide()
                   $(".container2").hide()
                   $(".container3").hide()
@@ -430,8 +503,8 @@ export default {
               $(this).addClass("btn-active").siblings().removeClass("btn-active")
             })
         },
-        hand(){
-            alert("hello")
+        jump(e){
+            window.location.href=e;
         },
         resetting(){
                 $(".menu-item .menu-list:first-child").addClass('on').siblings().removeClass('on')
@@ -439,14 +512,9 @@ export default {
         confirm(){
           $(".added,.added>.trigon-img").removeClass('active')
           $(".container4").hide("100",function(){
-              $("#img4").attr("src",'/static/trigon.png')
+              $("#img4").attr("src",'/test/creditCard/static/trigon.png')
               $("#modal-overlay").css("display","none")
-              $(".recommend-title").css("display","flex")
-              $(".recommend").css("display","block")
-              $(".list-circulate:eq(0)").css("margin-top","18px")
-              $(".list-box").css("height","76px")
-              $(".category").css("padding-top","0")
-              $(".category").css("padding-bottom","0")
+              
               $("body").css({
                     "height":"auto",
                     "width":"100%",
@@ -474,11 +542,11 @@ export default {
   }
   .banner{
     height: 145px;
-    background: url(/static/banner@2x.png) no-repeat center center/100% 100%;
+    background: url(/test/creditCard/static/banner@2x.png) no-repeat center center/100% 100%;
   }
   .recommend{
     position: relative;
-    height: 170px;
+    height: auto;
     border-top: 10px solid #f2f2f2;
     border-bottom:10px solid #f2f2f2;
   }
@@ -512,7 +580,7 @@ export default {
   }
   .bank-img{
     width: 100%;
-    height: 100px;
+    height: 105px;
     border-radius: 5px;
   }
   .bank-title{
@@ -528,14 +596,16 @@ export default {
     margin-top: 2px;
     margin-bottom: 4px;
   }
-  .star-img{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 3px;
-    background: url(/static/star.png) no-repeat center center/100% 100%;
+  .van-rate{
+    display: inline;
   }
-  .star-img ,.bank-star,.bank-btn{
+  .van-icon, .van-icon::before{
+    font-size:15px;
+  }
+  .van-rate__item {
+    padding: 0;
+  }
+  .bank-star,.bank-btn{
     font-size: 12px;
   }
   .bank-btn1{
@@ -565,7 +635,7 @@ export default {
     }
     .list-circulate{
         position: relative;
-        height: 125px;
+        height: auto;
         margin-top: 18px;
         border-bottom: .6px solid #dedede;
         margin-left: 15px;
@@ -615,7 +685,8 @@ export default {
 	    /* border-color: #3F75FF;     */
     }   
     .container1,.container2,.container3,.container4{
-        position: absolute;
+        position: fixed;
+        top:0;
         width: 100%;
         height: auto;
         z-index: 998;
@@ -629,9 +700,9 @@ export default {
         text-align: center;
     }
     .menu-list{
-        width: 22%;
+        width: 30%;
         /* padding-bottom: 14px; */
-        margin: 1.5%;
+        margin: 1.6%;
         box-sizing: border-box;
     }
     .menu-list a{
@@ -680,16 +751,16 @@ export default {
         background: #3161FF;
     }
     #modal-overlay {
-            display: none;
-            position: absolute;   /* 使用绝对定位或固定定位  */
-            left: 0;
-            top: 45px;
-            width:100%;
-            height: 100%;
-            z-index: 990;
-            background-color: #333;
-            opacity: 0.5;   /* 背景半透明 */
-        }
+        display: none;
+        position: absolute;   /* 使用绝对定位或固定定位  */
+        left: 0;
+        top: 0;
+        width:100%;
+        height: 100%;
+        z-index: 990;
+        background-color: #333;
+        opacity: 0.5;   /* 背景半透明 */
+    }
         /* 禁止网页滚动 */
         .ovfHiden{overflow-y: hidden;height: 100%;}
     @media only screen and (min-device-width: 320px) and (max-device-height: 568px){ 
@@ -697,6 +768,7 @@ export default {
         .bank-btn1{width: 100%;}
         .bank-btn{right: 0px;}
         .first-title{margin-left: 10px;}
-        .menu-list a{padding: 5px;}
+        .checkbox,.radio{ margin: 4px;}
+        .menu-list a{font-size:11px;}
     }
 </style>
